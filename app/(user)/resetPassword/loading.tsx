@@ -97,8 +97,3 @@ const StyledWrapper = styled.div`
   }`;
 
 export default Loader;
-
-
-// NEXT_PUBLIC_SUPABASE_URL=https://xjohgykjhsqkupscjdfo.supabase.co
-// NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhqb2hneWtqaHNxa3Vwc2NqZGZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMzA4NzcsImV4cCI6MjA5MjYwNjg3N30.xbPNTDl-iXBiyDsziL9TV211bpnyQBYbGIeYEkNtfcc
-// NEXT_PUBLIC_SITE_URL=http://localhost:3000

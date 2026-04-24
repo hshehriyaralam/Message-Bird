@@ -1,14 +1,14 @@
-import ForgotPassForm from '@/components/auth/forgotPassForm'
-import React from 'react'
+import ResetPasswordForm from "@/components/auth/resetPassForm"
 
-const ForgotPassword = () => {
+
+const ResetPassword = () => {
   return (
     <section className="flex min-h-svh  w-full items-center justify-center p-6 md:p-6  font-quicksand">
       <div className="w-full max-w-sm">
-      <ForgotPassForm  />
+        <ResetPasswordForm />
     </div>
     </section>
   )
 }
 
-export default ForgotPassword
+export default ResetPassword

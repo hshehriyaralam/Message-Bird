@@ -1,11 +1,12 @@
-import React from 'react'
-
+import LoginForm from "@/components/auth/LoginForm"
 const Login = () => {
   return (
-    <div>
-      <h1>Login</h1>
-      
-    </div>
+     <section className="flex min-h-svh  w-full items-center 
+     justify-center p-6 md:p-6  font-quicksand">
+          <div className="w-full max-w-sm">
+            <LoginForm />
+          </div>
+        </section>
   )
 }
 
