@@ -1,129 +1,93 @@
-import Link from "next/link";
-import {MessageCircle, Search}from 'lucide-react'
-import userAvatar  from '@/public/gamer.png'
+"use client";
+import { MessageCircle, Search } from "lucide-react";
+import userAvatar from "@/public/gamer.png";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getAllUsers } from "@/lib/helper/getAlluser";
+import Link from "next/link";
+import { useAuthStore } from "@/store/useAuthStore";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien";
 
 
 export default function SideBar() {
+  const [users, setUsers] = useState<any[]>([]);
+  const pathname = usePathname()
+  const authRoutes = ['/signup','/login','/forgotPassword','/resetPassword']
+  const hiddenRoute = authRoutes.includes(pathname)
+  const supabase = getSupabaseBrowserClient()
+  const {currentUserId, getCurrentUser} = useAuthStore()
 
-const navigations = [
-  {
-    id : 1,
-    label : "Sign Up",
-    link : '/signup'
-  },
-    {
-    id : 2,
-    label : "Login",
-    link : '/login'
-  },
-    {
-    id : 3,
-    label : "Forgot password ",
-    link : '/forgotPassword'
-  },
-    {
-    id : 4,
-    label : "Reset Password",
-    link : '/resetPassword'
-  },
-   {
-    id : 5,
-    label : "Home",
-    link : '/'
-  },
 
-]
 
-const allUsers = [
-  {
-    id : 1,
-    name : 'Ahmad',
-    profilePic : userAvatar,
-    message : 'ahmad is here'
-  },
-    {
-    id : 2,
-    name : 'Zain',
-    profilePic : userAvatar,
-    message : 'ahmad is here'
 
-  },
-    {
-    id : 3,
-    name : 'Daniyal',
-    profilePic : userAvatar,
-    message : 'ahmad is here'
-    
-  },
-    {
-    id : 4,
-    name : 'Uzair',
-    profilePic : userAvatar,
-    message : 'ahmad is here'
+  useEffect(() => {
+    getCurrentUser()
+  },[])
 
-  },
-    {
-    id : 5,
-    name : 'Umair',
-    profilePic : userAvatar,
-    message : 'ahmad is here'
+useEffect(() => {
+  if (!currentUserId) return;
 
-  },
-]
+  const fetchUsers = async () => {
+    const userData = await getAllUsers(currentUserId);
+    setUsers(userData);
+  };
+
+  fetchUsers();
+}, [currentUserId]);
+
+
 
   return (
-    <div
-       className={` flex w-80 flex-col border-r  bg-white `}
-    >
-
-      <div  className="flex items-center    py-4 px-4  ">
-        <MessageCircle className="w-8 h-8 text-primary"  />
-       <h2 className="font-quicksand text-3xl px-1   font-semibold  text-primary tracking-wide ">
-         Message Bird
+    <div className={` ${hiddenRoute ? 'hidden' : 'block'} flex w-80 flex-col border-r bg-white shadow-sm  `}>
+      <div className="flex items-center px-6 py-5 border-b">
+        <MessageCircle className="w-8 h-8 text-primary" />
+        <h2 className="font-quicksand text-2xl px-2 font-bold text-slate-800">
+          Message Bird
         </h2>
       </div>
 
-      <div  className="w-[90%]   h-12 rounded-xl flex items-center justify-between px-4  mx-auto p-2  border border-gray-200 ">
-        <input
-         type="text" 
-          className="h-8 font-quicksand p-2  outline-none"
-          placeholder="Search..."
-         />
-         <Search  className="w-5 h-5 text-gray-200" />
+      {/* Search */}
+      <div className="px-4 py-4">
+        <div className="h-12 rounded-2xl border bg-slate-50 flex items-center px-4">
+          <input
+            type="text"
+            placeholder="Search chats..."
+            className="flex-1 bg-transparent outline-none text-sm"
+          />
+          <Search className="w-5 h-5 text-slate-400" />
+        </div>
       </div>
 
+      {/* Users */}
+      <nav className="flex-1 px-3 pb-4 overflow-y-auto">
+        {users?.map((user: any) => (
 
-
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          <div  className="mb-4">
-            <div className="space-y-0.5  cursor-pointer  ">
-              { allUsers?.map((user:any) => (
-                  <div  key={user.id}
-                  className=" rounded-xl my-4 border flex   px-4  mx-auto p-2">
-                    <div  className="w-10 h-10 rounded-full border border-gray-200">
-                    <Image
-                    src={user.profilePic}
-                    alt="User Profile "
-                    width={50}
-                    height={50}
-                    />
-                    </div>
-                    <div  className="mx-2">
-                      <p  className="text-gray-600 font-quicksand font-medium text-[16px] -mb-1">{user?.name}</p>
-                      <p  className="font-normal text-gray-500 text-sm font-quicksand ">{user.message}</p>
-                      </div>
-              
-                    </div>
-                ))}
+          <Link href={`/chat/${user.id}`}
+            key={user.id}
+            className="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all duration-200"
+          >
+            <div className="w-12 h-12 rounded-full overflow-hidden  border flex items-center justify-center ">
+                 <Image
+                src={ user?.avatar_url ? user.profilePic : userAvatar}
+                alt="User"
+                width={48}
+                height={48}
+              /> 
+      
             </div>
 
-
-            <div>
-
+            <div className="flex-1">
+              <p className="font-semibold text-slate-800 font-quicksand">
+                {user.full_name}
+              </p>
+              <p className="text-sm text-slate-500 truncate">
+                {/* {user.message} */}
+                hello kaise ho
+              </p>
             </div>
-          </div>
+          </Link>
+        ))}
       </nav>
     </div>
   );

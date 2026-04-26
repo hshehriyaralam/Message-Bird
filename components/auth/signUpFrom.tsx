@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { useId, useState } from "react";
@@ -9,103 +10,123 @@ import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
-  const nameId = useId()
-  const emailId = useId()
-  const paswordId = useId()
-  const router = useRouter()
+  const nameId = useId();
+  const emailId = useId();
+  const passwordId = useId();
+  const router = useRouter();
+  
 
   const {
     register,
     handleSubmit,
-    reset ,
-    formState: { errors },
+    reset,
   } = useForm<SignUpDataTypes>();
 
-  const onSubmit =  async (data: SignUpDataTypes) => {
-    setLoading(true)
-    const email  = data?.email
-    const password  = data?.password
-    const name  = data?.name
-    await SignUpHandler({email,password,name,router,reset})
-    setLoading(false)
+  const onSubmit = async (data: SignUpDataTypes) => {
+    setLoading(true);
+    const email = data?.email;
+    const password = data?.password;
+    const name = data?.name;
+    await SignUpHandler({
+      email,
+      password,
+      name,
+      router,
+      reset,
+    });
+
+    setLoading(false);
   };
 
   return (
-    <section className="flex min-h-svh w-full items-center justify-center px-4 py-6">
-      <div className="w-full max-w-md">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="border border-gray-200 p-5 sm:p-6 w-full min-h-[300px] rounded-xl flex flex-col gap-4 shadow-sm"
-        >
-          <h2 className="text-xl sm:text-2xl font-bold text-primary  text-center">
-            Sign Up
-          </h2>
+    <section className="w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full border border-gray-200 rounded-xl p-4 sm:p-6 md:p-7 shadow-sm flex flex-col gap-4"
+      >
+        <h2 className="text-center text-xl sm:text-2xl font-bold text-primary">
+          Sign Up
+        </h2>
 
-          <div  className="flex flex-col gap-1">
-          <label 
-          htmlFor={nameId}
-          className="text-gray-700 font-medium text-sm sm:text-base  mx-2">
+        {/* Name */}
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor={nameId}
+            className="text-sm sm:text-base font-medium text-gray-700"
+          >
             Name
           </label>
-          <input
-          required
-            id={nameId}
-            {...register("name", { required: true })}
-            type="text"
-            placeholder="Enter Your Name"
-            className="p-3 px-4 rounded-xl border border-gray-200 text-sm sm:text-base focus:ring-2 focus:ring-primary outline-none"
-          />
-          </div>
 
-          <div  className="flex flex-col gap-1">
-          <label 
-          htmlFor={emailId}
-          className="text-gray-700 font-medium text-sm sm:text-base  mx-2">
+          <input
+            id={nameId}
+            type="text"
+            required
+            placeholder="Enter Your Name"
+            {...register("name", { required: true })}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        {/* Email */}
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor={emailId}
+            className="text-sm sm:text-base font-medium text-gray-700"
+          >
             Email
           </label>
-          <input
-           required
-          id={emailId}
-          type="email"
-          placeholder="Enter Your Email"
-          {...register("email", { required: true })}
-          className="p-3 px-4 rounded-xl border border-gray-200 text-sm sm:text-base focus:ring-2 focus:ring-primary outline-none"
-          />
-          </div>
 
-          <div  className="flex flex-col gap-1">
-          <label 
-          htmlFor={paswordId}
-          className="text-gray-700 font-medium text-sm sm:text-base mx-2">
+          <input
+            id={emailId}
+            type="email"
+            required
+            placeholder="Enter Your Email"
+            {...register("email", { required: true })}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        {/* Password */}
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor={passwordId}
+            className="text-sm sm:text-base font-medium text-gray-700"
+          >
             Password
           </label>
+
           <input
-           required
-          id={paswordId}
-            {...register("password", { required: true })}
+            id={passwordId}
             type="password"
+            required
             placeholder="Enter Your Password"
-            className="p-3 px-4 rounded-xl border border-gray-200 text-sm sm:text-base focus:ring-2 focus:ring-primary outline-none"
+            {...register("password", { required: true })}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-primary"
           />
-            </div>
+        </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full text-md   cursor-pointer bg-primary  hover:bg-primary/80 text-white font-semibold
-             py-5 sm:py-6 rounded-xl "
+        <Button
+          type="submit"
+          disabled={loading}
+          className="w-full py-5 sm:py-6 rounded-xl bg-primary hover:bg-primary/80 text-white font-semibold cursor-pointer"
+        >
+          {loading ? (
+            <Spinner className="size-5 sm:size-6" />
+          ) : (
+            "Sign Up"
+          )}
+        </Button>
+
+        <p className="text-center text-xs sm:text-sm text-gray-500">
+          Already have an account?{" "}
+          <a
+            href="/login"
+            className="font-semibold text-blue-900 hover:underline"
           >
-            {loading ? <Spinner className="lg:size-7  size-5" /> : "Sign Up"}
-          </Button>
-
-          <p className="text-gray-500 text-xs sm:text-sm text-center">
-            Already have an account?{" "}
-            <span className="text-blue-900 font-semibold hover:underline">
-              <a href="/login">Login</a>
-            </span>
-          </p>
-        </form>
-      </div>
+            Login
+          </a>
+        </p>
+      </form>
     </section>
   );
 }

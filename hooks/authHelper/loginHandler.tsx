@@ -29,8 +29,9 @@ export const LoginUpHandler = async ({
 
 
     toast.success("Login Successfully", {position : 'bottom-left'});
-    router.push('/')
     reset()
+    router.replace("/");
+    router.refresh();
   } catch (error:unknown) {
     if(error instanceof Error){
       console.log("error", error.message)

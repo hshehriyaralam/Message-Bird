@@ -43,12 +43,6 @@ export default function RootLayout({
       </div>
           </div>
       </body>
-
-
-      {/* <body className="min-h-full flex flex-col">
-        {children}
-         <Toaster /> 
-      </body> */}
     </html>
   );
 }

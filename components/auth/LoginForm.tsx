@@ -1,4 +1,5 @@
 "use client";
+
 import { LoginDataTypes } from "@/types/auth";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
@@ -11,75 +12,94 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const emailId = useId();
-  const paswordId = useId();
+  const passwordId = useId();
   const router = useRouter();
 
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
   } = useForm<LoginDataTypes>();
+
   const onSubmit = async (data: LoginDataTypes) => {
     if (loading) return;
+
     setLoading(true);
+
     const email = data?.email;
     const password = data?.password;
-    await LoginUpHandler({ email, password, router,reset });
+
+    await LoginUpHandler({
+      email,
+      password,
+      router,
+      reset,
+    });
+
     setLoading(false);
   };
 
   return (
-    <section className="flex min-h-svh w-full items-center justify-center px-4 py-6 font-quicksand">
-      <div className="w-full max-w-md ">
+    <section className="w-full">
+      <div className="w-full max-w-md mx-auto">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="border border-gray-200 p-5 sm:p-8 w-full
-     min-h-[400px] rounded-xl flex flex-col gap-4"
+          className="w-full border border-gray-200 rounded-xl 
+          p-4 sm:p-6 md:p-7 
+          min-h-[380px] 
+          flex flex-col gap-4 shadow-sm"
         >
           <h2 className="text-xl sm:text-2xl font-bold text-primary text-center font-quicksand">
             Login
           </h2>
 
-          <div className="flex flex-col gap-1">
+          {/* Email */}
+          <div className="flex flex-col gap-2">
             <label
               htmlFor={emailId}
-              className="text-gray-700 font-medium text-sm sm:text-base font-quicksand  mx-2"
+              className="text-gray-700 font-medium text-sm sm:text-base font-quicksand"
             >
               Email
             </label>
+
             <input
               required
               id={emailId}
               type="email"
               {...register("email", { required: true })}
               placeholder="Enter Your Email"
-              className="p-3 px-4 rounded-xl border border-gray-200 text-sm sm:text-base focus:ring-2 focus:ring-primary outline-none"
+              className="w-full p-3 px-4 rounded-xl border border-gray-200 
+              text-sm sm:text-base 
+              focus:ring-2 focus:ring-primary outline-none"
             />
           </div>
 
-          <div className="flex flex-col gap-1">
+          {/* Password */}
+          <div className="flex flex-col gap-2">
             <label
-              htmlFor={paswordId}
-              className="text-gray-700 font-medium text-sm sm:text-base font-quicksand  mx-2"
+              htmlFor={passwordId}
+              className="text-gray-700 font-medium text-sm sm:text-base font-quicksand"
             >
               Password
             </label>
+
             <input
               required
-              id={paswordId}
+              id={passwordId}
               {...register("password", { required: true })}
-              className="p-3 px-4 rounded-xl border border-gray-200 text-sm sm:text-base focus:ring-2 focus:ring-primary outline-none"
               type="password"
               placeholder="Enter Your Password"
+              className="w-full p-3 px-4 rounded-xl border border-gray-200 
+              text-sm sm:text-base 
+              focus:ring-2 focus:ring-primary outline-none"
             />
           </div>
 
-          <div>
+          <div className="flex flex-col gap-3">
             <Link href={"/forgotPassword"}>
               <p
-                className="font-quicksand text-primary  text-sm text-right font-medium
-            mb-1 mx-2 hover:underline"
+                className="font-quicksand text-primary text-sm text-right 
+                font-medium hover:underline"
               >
                 Forgot Password
               </p>
@@ -88,16 +108,21 @@ export default function Login() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full text-md cursor-pointer
-            bg-primary hover:bg-primary/80 text-white font-semibold py-5 sm:py-6 rounded-xl font-quicksand "
+              className="w-full text-md cursor-pointer 
+              bg-primary hover:bg-primary/80 text-white 
+              font-semibold py-5 sm:py-6 rounded-xl font-quicksand"
             >
-              {loading ? <Spinner className="lg:size-7  size-5" /> : "Login"}
+              {loading ? (
+                <Spinner className="size-5 sm:size-6" />
+              ) : (
+                "Login"
+              )}
             </Button>
           </div>
 
           <p className="text-gray-500 text-xs sm:text-sm text-center font-quicksand">
             Don't have an account?{" "}
-            <span className="text-blue-900 font-semibold font-quicksand  hover:underline">
+            <span className="text-blue-900 font-semibold font-quicksand hover:underline">
               <a href="/signup">SignUp</a>
             </span>
           </p>

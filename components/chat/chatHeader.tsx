@@ -1,28 +1,37 @@
-import Image from 'next/image'
-import React from 'react'
-import userAvatar  from '@/public/gamer.png'
-
+"use client";
+import Image from "next/image";
+import userAvatar from "@/public/gamer.png";
 
 const ChatHeader = () => {
   return (
-    <section  className='w-full h-20 border-b  '>
-      <div  className='p-2  flex items-center justify-start  gap-4'>
-        <div className='w-16 h-16 rounded-full border  '>
-            <Image
-              src={userAvatar}
-              alt="User Profile "
-              width={64}
-              height={64}
+    <section className="w-full h-20 border-b bg-white/90 backdrop-blur-md shadow-sm">
+      <div className="h-full px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md">
+              <Image
+                src={userAvatar}
+                alt="User Profile"
+                width={56}
+                height={56}
+                className="object-cover"
               />
-        </div>
+            </div>
 
-        <div  className=' '>
-          <p  className='text-xl font-semibold  font-quicksand text-primary'>Danyal</p>
-          <p  className='text-sm font-normal text-green-900  font-quicksand '>2:50 pm</p>
+            <span className="absolute bottom-1 right-0 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-white" />
+          </div>
+          <div>
+            <p className="text-lg font-semibold font-quicksand text-slate-800">
+              Daniyal
+            </p>
+            <p className="text-sm text-green-600 font-medium">
+              Active now
+            </p>
+          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ChatHeader
+export default ChatHeader;

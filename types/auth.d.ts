@@ -35,3 +35,11 @@ export type LoginHandlerPropsTypes  = {
     router? : any,
     reset :  any,
 }
+
+export type AuthStore = {
+  currentUserId: string | null;
+  loading: boolean;
+
+  getCurrentUser: () => Promise<void>;
+  setCurrentUserId: (id: string | null) => void;
+};
