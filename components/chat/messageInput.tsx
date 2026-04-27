@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { useChatStore } from "@/store/useChatStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { sendMessage } from "@/lib/helper/sendMessage";
+import React from "react";
 
 const MessageInput = () => {
     const {
@@ -20,7 +21,6 @@ const MessageInput = () => {
   const {conversationId} = useChatStore()
   const {currentUserId,} = useAuthStore()
   
-
 
   const onSubmit = async (data: any) => {
   if (!conversationId || !currentUserId) return;
@@ -103,6 +103,6 @@ const MessageInput = () => {
   );
 };
 
-export default MessageInput;
+export default  React.memo(MessageInput)
 
 

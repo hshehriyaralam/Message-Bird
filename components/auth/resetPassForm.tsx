@@ -1,6 +1,5 @@
 "use client";
-
-import { useId, useState } from "react";
+import React, { useId, useState } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useForm } from "react-hook-form";
@@ -9,7 +8,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function ResetPasswordForm() {
+ function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
   const passwordId = useId();
   const supabase = getSupabaseBrowserClient();
@@ -118,3 +117,6 @@ export default function ResetPasswordForm() {
     </section>
   );
 }
+
+
+export default  React.memo(ResetPasswordForm)

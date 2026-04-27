@@ -1,18 +1,16 @@
 import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien";
 
-export const getMessages = async (conversationId: string) => {
+export const getLastMessage = async (senderId: string) => {
   const supabase = getSupabaseBrowserClient();
 
   const { data, error } = await supabase
     .from("messages")
     .select("*")
-    .eq("conversation_id", conversationId)
-    .order("created_at", {
-      ascending: true,
-    });
+    .eq("sender_id", senderId)
+    .single()
 
   if (error) {
-    console.log("Fetch Messages Error:", error.message);
+    console.log("Fetch Last Message Error:", error.message);
     return [];
   }
 

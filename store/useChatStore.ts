@@ -1,9 +1,5 @@
-
 import { create } from "zustand";
 import {ChatStore} from '@/types/chat'
-
-
-
 
 export const useChatStore = create<ChatStore>((set) => ({
   conversationId: null,

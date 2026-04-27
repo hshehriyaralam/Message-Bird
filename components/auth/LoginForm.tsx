@@ -3,12 +3,12 @@ import { LoginDataTypes } from "@/types/auth";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useForm } from "react-hook-form";
-import { useId, useState } from "react";
+import React, { useId, useState } from "react";
 import Link from "next/link";
 import { LoginUpHandler } from "@/hooks/authHelper/loginHandler";
 import { useRouter } from "next/navigation";
 
-export default function Login() {
+ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const emailId = useId();
   const passwordId = useId();
@@ -130,3 +130,6 @@ export default function Login() {
     </section>
   );
 }
+
+
+export default  React.memo(LoginForm)

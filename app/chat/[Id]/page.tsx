@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import ChatHeader from "@/components/chat/chatHeader";
 import ChatArea from "@/components/chat/chatArea";
@@ -12,18 +12,10 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien";
 import {  getSelectedUser } from "@/lib/helper/getAlluser";
 
 
-type activeUserType = {
-  avatar_url : string,
-  created_at : string,
-  email : string,
-  full_name : string,
-  id : string
-
-}
 
 
 const Chats = () => {
-  const [actveUser, setActiveUser] = useState<activeUserType[]>([])
+  const [actveUser, setActiveUser] = useState<any[]>([])
   const { conversationId, setConversationId, setMessages, appendMessage} = useChatStore();
   const supabase = getSupabaseBrowserClient();
   const params = useParams();
@@ -32,22 +24,12 @@ const Chats = () => {
   const hasRun = useRef(false);
 
 
-  const fetchSelectUser = async () => {
+  const fetchSelectUser =  useMemo(() => async () => {
     const selectUser = await getSelectedUser(selectedUserId)
     setActiveUser(selectUser)
-  }
+  },[actveUser,currentUserId])
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   useEffect(() => {
     if (hasRun.current) return;
@@ -101,8 +83,6 @@ const Chats = () => {
     supabase.removeChannel(channel);
   };
 }, [conversationId]);
-
-console.log('active', actveUser)
 
 
 

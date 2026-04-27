@@ -1,19 +1,3 @@
-after click on user list check in conversation current and selected conversation is axist if not so create new conversation 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Tables  
 1) Profile   || Done 
@@ -37,6 +21,12 @@ Supabse storage create bucket
 
 Remaining Task 
 1) push currentUserId in login time 
+2) Side bard always persist 
+3) user name not load in refresh time 
+4) responsive chat interface 
+5) add custome scrollbar
+6) solve refresh realtime issue 
+
 
 
 

@@ -5,8 +5,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "@/lib/helper/getAlluser";
+import { getLastMessage } from "@/lib/helper/getLastMessage";
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useChatStore } from "@/store/useChatStore";
 
 
 export default function SideBar() {
@@ -15,6 +17,13 @@ export default function SideBar() {
   const authRoutes = ['/signup','/login','/forgotPassword','/resetPassword']
   const hiddenRoute = authRoutes.includes(pathname)
   const {currentUserId, getCurrentUser, currentUserName} = useAuthStore()
+  const {messages } = useChatStore()
+
+
+
+
+
+
 
 
   useEffect(() => {
@@ -24,13 +33,13 @@ export default function SideBar() {
 
 useEffect(() => {
   if (!currentUserId) return;
-
   const fetchUsers = async () => {
     const userData = await getAllUsers(currentUserId);
     setUsers(userData);
   };
   fetchUsers();
 }, [currentUserId]);
+
 
 
 
@@ -62,7 +71,6 @@ useEffect(() => {
 
       <nav className="flex-1 px-3 pb-4 overflow-y-auto">
         {users?.map((user: any) => (
-
           <Link href={`/chat/${user.id}`}
             key={user.id}
             className="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all duration-200"

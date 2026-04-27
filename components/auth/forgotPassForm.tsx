@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import React, { useId, useState } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import { ForgotPassDataTypes } from "@/types/auth";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien";
 import { toast } from "sonner";
 
-export default function ForgotPassForm() {
+ function ForgotPassForm() {
   const [loading, setLoading] = useState(false);
   const emailId = useId();
   const supabase = getSupabaseBrowserClient();
@@ -123,3 +123,5 @@ export default function ForgotPassForm() {
     </section>
   );
 }
+
+export default React.memo(ForgotPassForm)

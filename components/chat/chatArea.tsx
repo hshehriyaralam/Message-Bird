@@ -3,6 +3,7 @@
 import { useChatStore } from "@/store/useChatStore";
 import MessageBubble from "./messageBubble";
 import { useAuthStore } from "@/store/useAuthStore";
+import React from "react";
 
 const ChatArea = () => {
   const { messages } = useChatStore();
@@ -14,7 +15,7 @@ const ChatArea = () => {
         <MessageBubble
           key={msg.id}
           message={msg.message}
-          time={new Date(msg.created_at).toDateString()}
+          time={new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           isSender={msg.sender_id === currentUserId}
         />
       ))}
@@ -22,4 +23,4 @@ const ChatArea = () => {
   );
 };
 
-export default ChatArea;
+export default React.memo(ChatArea)

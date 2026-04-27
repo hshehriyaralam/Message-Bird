@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import userAvatar from "@/public/gamer.png";
+import React from "react";
 
 
 const ChatHeader = ({Name} : {Name: string}) => {
@@ -35,4 +36,4 @@ const ChatHeader = ({Name} : {Name: string}) => {
   );
 };
 
-export default ChatHeader;
+export default React.memo(ChatHeader)

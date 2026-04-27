@@ -1,4 +1,5 @@
 import SignUpForm from "@/components/auth/signUpFrom";
+import React from "react";
 
 const SignUp = () => {
   return (
@@ -10,4 +11,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default  React.memo(SignUp)  ;
