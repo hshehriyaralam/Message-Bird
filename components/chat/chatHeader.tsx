@@ -2,7 +2,8 @@
 import Image from "next/image";
 import userAvatar from "@/public/gamer.png";
 
-const ChatHeader = () => {
+
+const ChatHeader = ({Name} : {Name: string}) => {
   return (
     <section className="w-full h-20 border-b bg-white/90 backdrop-blur-md shadow-sm">
       <div className="h-full px-6 flex items-center justify-between">
@@ -22,7 +23,7 @@ const ChatHeader = () => {
           </div>
           <div>
             <p className="text-lg font-semibold font-quicksand text-slate-800">
-              Daniyal
+              {Name}
             </p>
             <p className="text-sm text-green-600 font-medium">
               Active now

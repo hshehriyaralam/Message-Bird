@@ -1,3 +1,20 @@
+after click on user list check in conversation current and selected conversation is axist if not so create new conversation 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Tables  
 1) Profile   || Done 
 2) Conversation  || Done 
@@ -18,11 +35,8 @@ Supabse storage create bucket
 
 
 
-sidebar works 
-1) all user fetch in sidebar with name,avatar from profiles tables
-2) find conversation with current user 
-3) get latest message form message tables 
-4) Show in sidebar 
+Remaining Task 
+1) push currentUserId in login time 
 
 
 

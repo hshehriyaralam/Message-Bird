@@ -1,5 +1,4 @@
 "use client";
-
 import { LoginDataTypes } from "@/types/auth";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";

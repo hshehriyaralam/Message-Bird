@@ -39,7 +39,7 @@ export type LoginHandlerPropsTypes  = {
 export type AuthStore = {
   currentUserId: string | null;
   loading: boolean;
-
+  currentUserName : string | null
   getCurrentUser: () => Promise<void>;
   setCurrentUserId: (id: string | null) => void;
 };

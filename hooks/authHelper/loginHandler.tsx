@@ -1,5 +1,6 @@
 "use client"
 import { getSupabaseBrowserClient } from "@/lib/supabase/browserClien"
+// import { useAuthStore } from "@/store/useAuthStore";
 import type {LoginHandlerPropsTypes} from '@/types/auth'
 import { toast } from "sonner";
 
@@ -10,6 +11,7 @@ export const LoginUpHandler = async ({
     router,
     reset,
 }:LoginHandlerPropsTypes) => {
+  // const {currentUserId, getCurrentUser} = useAuthStore() 
     const supabase = getSupabaseBrowserClient()
     try {
     const { data, error : LoginError } = await supabase.auth.signInWithPassword({
@@ -26,13 +28,15 @@ export const LoginUpHandler = async ({
       toast.error("Email Or Password not valid", {position : 'bottom-left'});
       return;
     }
-
-
     toast.success("Login Successfully", {position : 'bottom-left'});
     reset()
-    router.replace("/");
-    router.refresh();
-  } catch (error:unknown) {
+
+  // if(!LoginError && data?.user?.id){
+  //   setCurrentUserId(data.user.id)
+  // }
+  router.replace("/");
+  router.refresh();
+} catch (error:unknown) {
     if(error instanceof Error){
       console.log("error", error.message)
     }

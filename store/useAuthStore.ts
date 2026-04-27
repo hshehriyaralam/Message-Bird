@@ -6,6 +6,7 @@ import type {AuthStore} from '@/types/auth'
 export const useAuthStore = create<AuthStore>((set) => ({
   currentUserId: null,
   loading: false,
+  currentUserName :  null,
 
   setCurrentUserId: (id) =>
     set({
@@ -38,6 +39,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     set({
       currentUserId: user?.id || null,
       loading: false,
+      currentUserName : user?.user_metadata?.name  || '',
     });
   },
 }));
